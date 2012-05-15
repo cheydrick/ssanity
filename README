@@ -1,0 +1,3 @@
+ssanity is a way to verify that the intended flags to be set or unset in the termios structure are indeed set or unset.
+
+Terminal programming is very platform-dependant (so sayeth Stevens and Rago in Advanced Programming in the Unix Environment) so your mileage may vary. This works fine in Ubuntu 12.04.
