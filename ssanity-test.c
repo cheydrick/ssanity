@@ -1,12 +1,7 @@
-#include <stdio.h>    /* Standard input/output definitions */
+#include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>   /* Standard types */
-#include <string.h>   /* String function definitions */
-#include <unistd.h>   /* UNIX standard function definitions */
-#include <fcntl.h>    /* File control definitions */
-#include <errno.h>    /* Error number definitions */
-#include <termios.h>  /* POSIX terminal control definitions */
-#include <sys/ioctl.h>
+#include <fcntl.h>
+#include <termios.h>
 #include "ssanity.h"
 
 
@@ -16,7 +11,6 @@ int main(int argc, char *argv[])
 {
 	int porthandle;
 
-	//Open the file descriptor
 	porthandle = open(portname, O_RDWR | O_NOCTTY | O_NDELAY);
 
 	if (porthandle == -1)
@@ -24,8 +18,6 @@ int main(int argc, char *argv[])
 			printf("Couldn't open port %s\n", portname);
 			return -1;
 		}
-
-	//Set up the control structure
 
 	struct termios toptions;
 
