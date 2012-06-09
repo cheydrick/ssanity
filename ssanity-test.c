@@ -27,13 +27,22 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    printf("Getting attributes...\n");
+    print_c_iflag(&toptions);
+    print_c_oflag(&toptions);
+    print_c_cflag(&toptions);
+    print_c_lflag(&toptions);
+
     //set options
-    cfsetispeed(&toptions, B9600);
-    cfsetospeed(&toptions, B9600);
+    if (cfsetispeed(&toptions, B9600) < 0) {printf("error setting input speed\n");}
+    if (cfsetospeed(&toptions, B9600) < 0) {printf("error setting output speed\n");}
     toptions.c_cflag &= ~PARENB;
     toptions.c_cflag &= ~CSTOPB;
     toptions.c_cflag &= ~CSIZE;
     toptions.c_cflag |= CS8;
+
+    printf("Setting attributes...\n");
+    tcsetattr(porthandle, TCSANOW, &toptions);
 
     //sanity checks...
     print_c_iflag(&toptions);
@@ -41,5 +50,9 @@ int main(int argc, char *argv[])
     print_c_cflag(&toptions);
     print_c_lflag(&toptions);
 
-return 0;
+    printf("Sanity check real quick...\n");
+    printf("CSIZE is %i\n", CSIZE);
+    printf("CSIZE inverted is %i\n", ~CSIZE);
+    printf("toptions.c_cflag is %i\n", toptions.c_cflag);
+    return 0;
 }
